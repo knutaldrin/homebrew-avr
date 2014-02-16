@@ -19,16 +19,18 @@ class AvrBinutils < Formula
             "--infodir=#{info}",
             "--mandir=#{man}",
             "--disable-werror",
+            "--enable-install-libbfd",
+            "--enable-install-libiberty",
             "--disable-nls"]
 
-    unless build.include? 'disable-libbfd'
-      Dir.chdir "bfd" do
-        ohai "building libbfd"
-        system "./configure", "--enable-install-libbfd", *args
-        system "make"
-        system "make install"
-      end
-    end
+#    unless build.include? 'disable-libbfd'
+#      Dir.chdir "bfd" do
+#        ohai "building libbfd"
+#        system "./configure", "--enable-install-libbfd", *args
+#        system "make"
+#        system "make install"
+#      end
+#    end
 
     # brew's build environment is in our way
     ENV.delete 'CFLAGS'
@@ -40,10 +42,31 @@ class AvrBinutils < Formula
     if MacOS.version == :lion
       ENV['CC'] = ENV.cc
     end
+    
+    binutils_prep
 
     system "./configure", "--target=avr", *args
-
-    system "make"
+    
+    system "make all-bfd TARGET-bfd=headers"
+    
+    # Force reconfig
+    system "rm bfd/Makefile"
+    
+    system "make configure-host"
+    
+    system "make all"
     system "make install"
   end
+  
+  def binutils_prep
+  	# Replace AC req
+  	system "sed 's/AC_PREREQ(2.64)/AC_PREREQ(2.69)/g' ./configure.ac > ./configure.ac"
+  	system "sed 's/AC_PREREQ(2.64)/AC_PREREQ(2.69)/g' ./libiberty/configure.ac > ./libiberty/configure.ac"
+  	
+  	system "autoconf"
+  	Dir.chdir "libiberty" do
+  		system "autoconf"
+  	end
+  end
+  	
 end
