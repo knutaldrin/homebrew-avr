@@ -8,11 +8,11 @@ end
 # `avr-gcc -print-prog-name=cc1plus` -v
 
 class AvrGcc < Formula
-  homepage 'http://gcc.gnu.org'
-  url 'http://ftp.gnu.org/gnu/gcc/gcc-4.8.2/gcc-4.8.2.tar.bz2'
-  sha1 '810fb70bd721e1d9f446b6503afe0a9088b62986'
+  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.3/avr-gcc-4.8.1.tar.gz'
+  sha256 'e55e6146d8079dcbe44e561ec6a15a84a4c758d51791bf369faaaa79341b30cd'
 
-  depends_on 'ddm/avr/avr-binutils'
+  depends_on 'knutaldrin/avr/avr-binutils'
   depends_on 'gmp'
   depends_on 'libmpc'
   depends_on 'mpfr'

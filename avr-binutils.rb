@@ -1,10 +1,9 @@
 require 'formula'
 
 class AvrBinutils < Formula
-  url 'http://ftpmirror.gnu.org/binutils/binutils-2.24.tar.bz2'
-  mirror 'http://ftp.gnu.org/gun/binutils/binutils-2.24.tar.bz2'
-  homepage 'http://www.gnu.org/software/binutils/binutils.html'
-  sha1 '7ac75404ddb3c4910c7594b51ddfc76d4693debb'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.3/avr-binutils-2.23.2.tar.gz'
+  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
+  sha256 '9d9327a3a9f42ff2753281ab9f074abe3e74aeea34ee7b9b2cff14c1bd4540f0'
 
   option 'disable-libbfd', 'Disable installation of libbfd.'
 
@@ -47,11 +46,4 @@ class AvrBinutils < Formula
     system "make"
     system "make install"
   end
-
-  def patches
-    # Support for -C in avr-size. See issue 
-    # https://github.com/larsimmisch/homebrew-avr/issues/9
-    { :p0 => "https://gist.github.com/larsimmisch/4190960/raw/b36f3d6d086980006f097ae0acc80b3ada7bb7b1/avr-binutils-size.patch" }
-  end
-
 end

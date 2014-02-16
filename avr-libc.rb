@@ -1,11 +1,11 @@
 require 'formula'
 
 class AvrLibc < Formula
-  url 'http://download.savannah.gnu.org/releases/avr-libc/avr-libc-1.8.0.tar.bz2'
-  homepage 'http://www.nongnu.org/avr-libc/'
-  sha1 '2e3815221be8e22f5f2c07b922ce92ecfa85bade'
+  url 'http://distribute.atmel.no/tools/opensource/Atmel-AVR-GNU-Toolchain/3.4.3/avr-libc-1.8.0.tar.gz'
+  homepage 'http://www.atmel.com/tools/ATMELAVRTOOLCHAINFORLINUX.aspx'
+  sha256 'e71c0cb185b8a468953eb3b74d491c2dea9030b67fb152f060870eefe93c816e'
 
-  depends_on 'ddm/avr/avr-gcc'
+  depends_on 'knutaldrin/avr/avr-gcc'
 
   def install
     # brew's build environment is in our way
@@ -15,7 +15,7 @@ class AvrLibc < Formula
     ENV.delete 'CC'
     ENV.delete 'CXX'
 
-    avr_gcc = Formula.factory('larsimmisch/avr/avr-gcc')
+    avr_gcc = Formula.factory('knutaldrin/avr/avr-gcc')
     build = `./config.guess`.chomp
     system "./configure", "--build=#{build}", "--prefix=#{prefix}", "--host=avr"
     system "make install"
